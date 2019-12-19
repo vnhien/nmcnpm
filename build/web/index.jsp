@@ -1,0 +1,144 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+         pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Home</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link href="Footer-Dark.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link href="Header-Dark.css" rel="stylesheet" type="text/css"/>
+        <link href="Navigation-with-Button.css" rel="stylesheet" type="text/css"/>
+        <link href="Article-List.css" rel="stylesheet" type="text/css"/>
+        <link href="Filter.css" rel="stylesheet" type="text/css"/>
+        <link href="Login-Form-Clean.css" rel="stylesheet" type="text/css"/>
+        <link href="Navigation-with-Button.css" rel="stylesheet" type="text/css"/>
+        <link href="Projects-Clean.css" rel="stylesheet" type="text/css"/>
+        <link href="Registration-Form-with-Photo.css" rel="stylesheet" type="text/css"/>
+        <link href="product_page.css" rel="stylesheet" type="text/css"/>
+        <link href="styles.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+
+        <c:set var="x" value="0"></c:set>
+        <c:forEach items="${cartlist }" var="i">
+            <c:set var="x" value="${x+1 }"></c:set>
+        </c:forEach>
+
+
+
+        <header>
+            <nav class="navbar navbar-light navbar-expand sticky-top bg-dark navigation-clean-button" style="color: rgb(255,255,255);background-color: rgb(0,0,0);">
+                <div class="container-fluid"><a class="navbar-brand" href="Controller?page=index">Nhóm 6</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse"
+                         id="navcol-1">
+                        <ul class="nav navbar-nav mr-auto">
+                            <li class="nav-item" role="presentation"><a style="color:teal"class="nav-link " href="Controller?page=home-decor">TRANG TRÍ</a></li>
+                            <li class="nav-item" role="presentation"><a style="color:teal" class="nav-link " href="Controller?page=clothing">QUẦN ÁO</a></li>
+                            <li class="nav-item" role="presentation"><a style="color:teal" class="nav-link " href="Controller?page=mobiles">ĐIỆN THOẠI</a></li>
+                        </ul><span class="navbar-text actions"> 
+                            <c:choose>
+                                <c:when test="${session == null}">
+                                    <a class="btn btn-light action-button" role="button" href="Controller?page=login">Đăng nhập</a>
+                                    <a class="btn btn-light action-button" role="button" href="Controller?page=sign-up">Đăng ký</a>
+                                </c:when>
+                                <c:when test="${session != null}">
+                            <a class="btn btn-light action-button" role="button"><c:out value="${username }"></c:out></a>
+                                <a class="btn btn-light action-button" role="button" href="Controller?page=logout">Đăng xuất</a>
+                        </c:when>
+                    </c:choose> 
+                               <a class="btn btn-light action-button" role="button" href="Controller?page=showcart"> Giỏ hàng(<c:out value="${x}"/>)</a>
+                           </span></div>
+            </nav>
+        </header>
+      
+
+        <!-- Start: Jumbotron -->
+        <div class="jumbotron d-flex justify-content-center jumbotron_image" style="background-image: url(&quot;assets/img/clothing.jpg&quot;);">
+            <h1 class="text-center rounded d-inline-block" style="color: rgb(255,255,255);background-color: rgba(0,0,0,0.25);padding: 15px;margin-bottom: 15px;">Chào mừng đến mua hàng</h1>
+        </div>
+        <!-- End: Jumbotron -->
+        
+        <!-- Start: Article List -->
+            <div class="article-list">
+                <div class="container">
+                    <h2 style="text-align: center;">Sản phẩm đặc biệt</h2><br>
+
+                    <div class="row articles">
+                        <c:forEach items="${list }" var="product">
+
+                            <c:if test="${product.getFeatured() == 'yes' }">
+                                <div class="col-sm-6 col-md-4 item"><a href="Controller?page=productinfo&id=<c:out value="${product.getId()}"/>&img=<c:out value="${product.getImage()}"/>&name=<c:out value="${product.getName()}"/>&price=<c:out value="${product.getPrice()}"/>">
+                                        <img style='height:300px;width:300px' src="${product.getImage() }"></a>
+                                    <h3 class="name">${product.getName() }</h3>
+                                    <p class="description">${product.getCategory() }</p>
+                                    <h4>${product.getPrice() } VND</h4>
+                                    <a class="btn btn-primary" href="Controller?page=addtocart&action=index&id=<c:out value="${product.getId()}"/>">Thêm vào giỏ</a>
+                                    </div>
+                            </c:if>
+
+
+                        </c:forEach>
+                    </div>
+                    <!-- End: Articles -->
+                </div>
+            </div>
+            <!-- End: Article List -->
+            <hr>
+        
+
+        <div class="container d-flex flex-column">
+        
+            <div class="row" style="height:250px">
+            <div class="col" style="font-size: 16px;height: 198px;margin: 8px;padding: 0px;background-size: cover;background-position: center center;background-size: cover;background-repeat: no-repeat;margin-right: 12px;">
+                <a href="Controller?page=mobiles">
+                <div class="category_image" style="background-image: url(&quot;assets/img/apparel.jpg&quot;);"></div>
+                </a>
+                <a style='color:black' href="Controller?page=mobiles">
+                <h1>Điện thoại</h1>
+                </a>
+            </div>
+            <div class="col" style="font-size: 16px;height: 198px;margin: 8px;padding: 0px;background-size: cover;background-position: center center;background-size: cover;background-repeat: no-repeat;">
+                <a href="Controller?page=home-decor">
+                <div class="category_image" style="background-image: url(&quot;assets/img/accessories.jpg&quot;);/*width: 100%;*//*height: 25rem;*//*background-position: center center;*//*margin-bottom: 1rem;*/"></div>
+                </a>
+                <a style='color:black' href="Controller?page=home-decor">
+                <h1>Trang trí</h1>
+                </a>
+            </div>
+        
+        </div>
+        <div class="row" style="margin-top:13rem">
+            <div class="col">
+                <a href="Controller?page=clothing">
+                <div class="category_image" style="background-image: url(&quot;assets/img/clothes.jpg&quot;);"></div>
+                </a>
+                <a style='color:black'href="Controller?page=clothing">
+                <h1>Quần áo</h1>
+                </a>
+            </div>
+        </div>
+    </div>
+        <!-- Start: Footer Dark -->
+        <div class="footer-dark">
+            <footer>
+                <div class="container">
+                    
+                        <!-- End: About -->
+                        <!-- Start: Footer Text -->
+                        
+                        <!-- End: Footer Text -->
+                    </div>
+                    <!-- Start: Copyright -->
+                    <p class="copyright">NHÓM 6</p>
+                    <!-- End: Copyright -->
+                </div>
+            </footer>
+        </div>
+        <!-- End: Footer Dark -->
+
+    </body>
+</html>
